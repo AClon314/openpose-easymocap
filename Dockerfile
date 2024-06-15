@@ -5,6 +5,10 @@ FROM nvidia/cuda:11.1.1-cudnn8-devel-ubuntu20.04
 # 如果你在中国，将镜像站提供的sources.list保存到dockerfile同目录下，使用apt镜像仓库以加快下载/节省流量。
 # COPY ./sources.list /etc/apt/sources.list
 
+# nvidia-prime
+COPY ./prime /bin
+RUN chmod +x /bin/prime
+
 # Package Downloads
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -57,6 +61,7 @@ RUN cmake -DBUILD_PYTHON=ON -DGPU_MODE=CPU_ONLY -DOWNLOAD_HAND_MODEL=OFF -DOWNLO
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 WORKDIR $OPENPOSE_DIR
+RUN ln -s cpu_build build
 
 LABEL maintainer="hiibolt, AClon"
 LABEL version="0.1"
