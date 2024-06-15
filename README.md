@@ -10,12 +10,13 @@ ghcr.io/aclon314/openpose-easymocap:main
 > [!NOTE]
 > replace `--volume /home/$(whoami)/easymocap:/home/em` with your desire mount dir.
 
-> [!CAUTION] Error: lib.so not found
-make link from `cpu_build` or `gpu_build` to build
-```sh
-cd /home/openpose
-ln -s cpu_build/ build
-```
+> [!CAUTION]
+> Error: lib.so not found  
+> Solve: make link from `cpu_build` or `gpu_build` to build
+> ```sh
+> cd /home/openpose
+> ln -s cpu_build/ build
+> ```
 
 ## CPU + Python API + CUDA + cuDNN (./Dockerfile)
 CMake also seems to have issues with building to support CMake, which the work here seems to fix - however, it targets a now depreciated version of nvidia/cuda. By changing the target from nvidia/cuda:11.4.0-cudnn8-devel-ubuntu18.04 to nvidia/cuda:11.3.1-cudnn8-devel-ubuntu18.04, it now has a functional source image.
